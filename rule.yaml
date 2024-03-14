@@ -1,0 +1,24 @@
+rules:
+  - id: test_inter_analysis
+    message: "message: test_inter analysis."
+    author: zhilong.wang1
+    severity: WARNING
+    languages:
+      - go
+    mode: taint
+    options:
+      interfile: true
+    pattern-sources:
+      - patterns:
+          - pattern: |
+              ... = reader.ReadString(...)
+         
+        label: USR_INPUT
+     
+    pattern-sinks:
+      - patterns:
+          - pattern-inside: |
+              fmt.Println(...)
+        requires: USR_INPUT
+              
+        
